@@ -1,5 +1,3 @@
-console.log('hi');
-
 // Create array of choices
 const choices = ['rock', 'paper', 'scissors'];
 
@@ -14,7 +12,9 @@ function getComputerChoice() {
 
 function getPlayerChoice() {
   //   Prompt user for selection. trim and lowerCase selection
-  const choice = prompt('Rock, Paper, Scissors?').trim().toLowerCase();
+  const choice = prompt('Best out of 5! Rock, Paper, Scissors?')
+    .trim()
+    .toLowerCase();
   //   Log user's choice to console and return user's choice
   if (choice === 'rock') {
     console.log(`You selected ${choices[0]}`);
@@ -44,7 +44,7 @@ function playRound() {
   const tie = playerSelection === computerSelection;
   if (tie) {
     console.log(`It's a tie`);
-    return;
+    return playRound();
   }
   if (computerWin) {
     console.log(`Opponent wins`);
@@ -62,16 +62,18 @@ function playGame() {
     const round = playRound();
     if (round === 1) computerScore++;
     if (round === 2) playerScore++;
+
     console.log(
       `The score is
       You ${playerScore}
       Opponent ${computerScore}`
     );
     playGame();
+  } else {
+    playerScore > computerScore
+      ? console.log(`Congratulations! You're the first to 3 wins.`)
+      : console.log(`Sorry, but your opponent was the first to 3 wins.`);
   }
-  playerScore > computerScore
-    ? console.log(`You won best out of 5.`)
-    : console.log(`Your opponent won best out of 5.`);
 }
 
 playGame();
